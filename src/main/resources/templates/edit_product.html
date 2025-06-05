@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="~{common :: commonHead}">
+  <title>상품 수정</title>
+</head>
+
+<body>
+<div class="container">
+  <div th:replace="~{fragments/header :: header}"></div>
+  
+  <h1 class="mt-5 text-center">상품 수정</h1>
+  <br />
+
+  <form th:action="@{/products/save}" th:object="${product}" method="post">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="productId" class="form-label">상품 ID:</label>
+          <input type="text" id="productId" class="form-control" th:field="*{id}" readonly />
+        </div>
+
+        <div class="mb-3">
+          <label for="productName" class="form-label">상품명:</label>
+          <input type="text" id="productName" class="form-control" th:field="*{name}" />
+          <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="brand" class="form-label">브랜드:</label>
+          <input type="text" id="brand" class="form-control" th:field="*{brand}" />
+          <div class="text-danger" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="madeIn" class="form-label">제조국:</label>
+          <input type="text" id="madeIn" class="form-control" th:field="*{madeIn}" />
+          <div class="text-danger" th:if="${#fields.hasErrors('madeIn')}" th:errors="*{madeIn}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="price" class="form-label">가격:</label>
+          <input type="number" step="0.01" id="price" class="form-control" th:field="*{price}" />
+          <div class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">저장</button>
+          <a th:href="@{/products}" class="btn btn-secondary">취소</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Bootstrap JS 로딩 -->
+<div th:insert="~{common :: commonScript}"></div>
+</body>
+</html>

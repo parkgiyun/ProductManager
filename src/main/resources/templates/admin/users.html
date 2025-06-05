@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="~{common :: commonHead}">
+    <title>사용자 관리</title>
+</head>
+
+<body>
+<div class="container">
+    <div th:replace="~{fragments/header :: header}"></div>
+    
+    <h1 class="mt-5">사용자 관리</h1>
+    <p>이 페이지는 관리자만 접근할 수 있습니다.</p>
+    
+    <table class="table table-bordered mt-4">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>권한</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">ID</td>
+                <td th:text="${user.name}">이름</td>
+                <td th:text="${user.email}">이메일</td>
+                <td>
+                    <span th:each="role, iterStat : ${user.roles}">
+                        <span th:text="${role.name.replace('ROLE_', '')}"></span>
+                        <span th:if="${!iterStat.last}">, </span>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="mt-3">
+        <a th:href="@{/products}" class="btn btn-primary">상품 목록으로 돌아가기</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS 로딩 -->
+<div th:insert="~{common :: commonScript}"></div>
+</body>
+</html>
